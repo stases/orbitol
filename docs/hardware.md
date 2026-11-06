@@ -135,7 +135,7 @@ sampling with the run's own settings, 500-step NequIP relaxation of every crysta
 
 | Configuration | GPU | Evaluation | Steps/s at step 200 | Result |
 |---|---|---|---:|---|
-| Ampere defaults: bf16, `reduce-overhead`, packed 8,192, oeq sm_89 | RTX 3090 | sync | 15.4 | evaluation complete in 223 s; startup logs the sm_89 artifact's sha256 (507cbd2d...) |
+| Ampere defaults: bf16, `reduce-overhead`, packed 8,192, oeq sm_89 | RTX 3090 | sync | 15.4 | evaluation complete in 223 s; startup logs the sm_89 artifact's sha256 |
 | Turing: fp16, `reduce-overhead`, packed 8,192, oeq sm_75 | Titan RTX | async, `--eval-gres` requesting a Titan RTX | 13.9 | GPU stage on a Titan RTX (sampling 52 s, relaxation 75 s) with the fp16 sampler and the sm_75 artifact (71e47f1a...); CPU scoring complete |
 | Turing: fp32, `reduce-overhead`, packed 8,192, oeq sm_75 | Titan RTX | sync | 10.9 | evaluation complete in 257 s; startup logs the sm_75 artifact's sha256 |
 | Sampler CLI on the bf16 checkpoint, `--precision fp32` and `--precision fp16` | Titan RTX | | | 512 crystals each, no decode failures, `metadata["overrides"]` recorded |

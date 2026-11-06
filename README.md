@@ -77,7 +77,7 @@ GPUs without bf16.
 Download the released MP-20 model, its data and the NequIP relaxer from Hugging Face:
 
 ```bash
-BUNDLE=https://huggingface.co/stases/orbitol/resolve/f9e3e5076eb0f80a82b58836b74a5e29e4469625
+BUNDLE=https://huggingface.co/stases/orbitol/resolve/0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c
 python -m tools.release.fetch --bundle "$BUNDLE" --public mp20-raw,mp20-hull
 CKPT="$(python -m orbitol.contracts ORBITOL_DATA_HOME)/checkpoints/mp20_x_postper_2500k/step_1500000.pt"
 ```

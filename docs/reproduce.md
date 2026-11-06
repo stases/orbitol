@@ -6,7 +6,7 @@ paper's main tables score the samples with LeMat-GenBench. Configuration, proven
 [configs/paper/models.json](../configs/paper/models.json); settings the paper does not list (training
 seed 123, pool seeds, `pad_multiple`) are in these files, and the element mask is derived from the
 training data. No Alex-MP-20, control or Orbitol-I weights are released.
-Release files: [huggingface.co/stases/orbitol](https://huggingface.co/stases/orbitol), revision `f9e3e5076eb0f80a82b58836b74a5e29e4469625`.
+Release files: [huggingface.co/stases/orbitol](https://huggingface.co/stases/orbitol), revision `0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c`.
 
 ## Prerequisites and setup
 Use Linux x86_64, git, uv, an NVIDIA GPU supporting bf16, a driver compatible with the locked
@@ -39,12 +39,12 @@ against its SHA-256. Supply the bundle's download URL at the paper revision, or 
 with `--bundle`:
 
 ```bash
-BUNDLE=https://huggingface.co/stases/orbitol/resolve/f9e3e5076eb0f80a82b58836b74a5e29e4469625
+BUNDLE=https://huggingface.co/stases/orbitol/resolve/0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c
 python -m tools.release.fetch --bundle "$BUNDLE" --public mp20-raw,mp20-hull --dry-run
 python -m tools.release.fetch --bundle "$BUNDLE" --public mp20-raw,mp20-hull
 ```
 
-A local copy works the same way: `hf download stases/orbitol --revision f9e3e5076eb0f80a82b58836b74a5e29e4469625 --local-dir <dir>`,
+A local copy works the same way: `hf download stases/orbitol --revision 0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c --local-dir <dir>`,
 then `--bundle <dir>`.
 
 The bundle contains the data layout, `checkpoints/`, `configs/paper/` and `MANIFEST.json`.
