@@ -1,0 +1,7 @@
+{
+  "sample_num_steps": 25,
+  "S_churn": 10.0,
+  "sigma_min": 0.01,
+  "sigma_max": 3.0,
+  "decode_impl": "reference"
+}

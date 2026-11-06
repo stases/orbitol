@@ -1,0 +1,56 @@
+[project]
+name = "orbitol"
+version = "0.0.1"
+description = "Crystalite with space groups built in: diffusion over Wyckoff-orbit tokens"
+requires-python = "==3.12.*"
+# Pins equal the runtime of the paper runs (Crystalite uv.lock at 03603fe plus the OpenEquivariance packages); uv.lock fixes
+# every transitive version. The Crystalite core is imported from a pinned checkout (orbitol/core.py).
+dependencies = [
+    "torch==2.8.0",
+    "triton==3.4.0",                # orbitol/optim.py
+    "numpy==1.26.4",
+    "scipy==1.15.3",
+    "pymatgen==2024.11.13",
+    "spglib==2.7.0",
+    "pyxtal==1.1.2",
+    "ase==3.27.0",
+    "smact==2.6",
+    "tqdm==4.67.1",
+    "nequip==0.17.0",
+    "torch-sim-atomistic==0.5.2",
+    "openequivariance==0.5.4",      # default NequIP backend; JIT-builds with ninja, nvcc and g++ >= 12
+    "ninja==1.11.1.4",
+    "numba==0.61.2",                # fast decoder; without it decoding is slower but identical
+    "wandb==0.23.1",
+    "certifi==2026.1.4",            # CA bundle for downloads (tools/build_nequip.py)
+    # Imported by the Crystalite core modules Orbitol loads (src.eval, src.utils); never called by Orbitol.
+    "chgnet==0.4.2",
+    "matminer==0.9.3",
+    "joblib==1.5.3",
+    "lightning-utilities==0.15.2",
+]
+
+[dependency-groups]
+data = ["pandas==2.3.3", "pyarrow==22.0.0", "lmdb==1.8.1"]  # tools/build_alex_reference.py
+dev = [{ include-group = "data" }, "pytest==9.0.2", "matplotlib==3.10.8", "wandb-workspaces==0.4.5"]
+
+[tool.uv]
+package = false
+# openequivariance ships only an sdist; pin its build tools to the ones that built the paper runtime.
+build-constraint-dependencies = ["setuptools==80.9.0", "setuptools-scm==8.3.1"]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "slow: takes more than about 10 s on CPU",
+  "gpu: needs CUDA; skipped otherwise",
+  "data: needs local data (ORBITOL_DATA_HOME in orbitol.local.env); skipped otherwise",
+]

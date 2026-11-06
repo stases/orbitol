@@ -1,0 +1,29 @@
+{
+  "description": "Hand-audited entries of MatterGen's Alex-MP MP2020 reference (reference_MP2020correction.gz). The build marks every listed key; the known_bad flag drops entries whose action is exclude. Entries with action retain_flagged are recorded only. Entries without a key are documentation only and change nothing.",
+  "evidence_root": "runs/alex_reference",
+  "entries": [
+    {
+      "key": "Co-O.CoO2.34",
+      "entry_id": "mp-796278-GGA+U",
+      "action": "exclude",
+      "reason": "Raw energy -71.038 eV for 6 sites (-11.84 eV/atom), 6.09 eV/atom below the other 38 CoO2 entries (-4.43 to -5.74). MP's own record of mp-796278 (task mp-1432891) is -5.58 eV/atom, and NequIP on the stored structure differs from the stored energy by +6.14 eV/atom. Same POTCARs and U as MP; not a normalisation error (energy ratio 2.12).",
+      "evidence": [
+        "mp_forensics (section CoO2 mp-796278)",
+        "outputs/probe/alex-mp2020/entries.csv",
+        "outputs/flags_mp2020.json"
+      ],
+      "found": "2026-10-07"
+    },
+    {
+      "key": null,
+      "formula": "Rb2MnFeF6",
+      "action": "retain_flagged",
+      "reason": "msft entry more than 0.10 eV/atom below the whole available Alexandria same-formula envelope and a composition minimum; unexplained, not demonstrated wrong.",
+      "evidence": [
+        "alex_forensics",
+        "alex_forensics_evidence/tail_cases.jsonl"
+      ],
+      "found": "2026-10-07"
+    }
+  ]
+}

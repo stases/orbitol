@@ -1,0 +1,11 @@
+{
+  "mp20-raw": [
+    {"url": "https://huggingface.co/datasets/joshrosie/crystalite-datasets/resolve/3e88267c9b07a23a2b069bd94f29a351be858c21/mp20/raw/train.csv", "path": "mp20/raw/train.csv", "size": 80926584, "sha256": "30bdc91b445a6c6b2015dd5892628d634f0e9c294c0994ac0ef65ccf0f7cafa5"},
+    {"url": "https://huggingface.co/datasets/joshrosie/crystalite-datasets/resolve/3e88267c9b07a23a2b069bd94f29a351be858c21/mp20/raw/val.csv", "path": "mp20/raw/val.csv", "size": 26860770, "sha256": "f275643e0fabc5af7273eda9393bbec372866c5bf6948f6b6a6da15d8d6409ba"},
+    {"url": "https://huggingface.co/datasets/joshrosie/crystalite-datasets/resolve/3e88267c9b07a23a2b069bd94f29a351be858c21/mp20/raw/test.csv", "path": "mp20/raw/test.csv", "size": 26843875, "sha256": "921a56f057bc948886624baa0a4147928a87873a9738f03ab2de90474eb21a13"}
+  ],
+  "mp20-hull": [
+    {"url": "https://ndownloader.figshare.com/files/48241624", "path": "hulls/mp20/2023-02-07-ppd-mp.pkl", "size": 220011896, "md5": "60d19d691fa1d338aa496a40a9641bef", "gunzip": {"size": 2005942454, "sha256": "d367336484e11d95104897b13df18a153c0a839160e3a5c5a0f325fc6fe6268e"}}
+  ],
+  "nequip-source": {"source": "tools.build_nequip.SOURCE", "directory": "mlip/source"}
+}

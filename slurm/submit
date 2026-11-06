@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Isolate Slurm placement from the caller's shell and select it per script.
+set -euo pipefail
+usage() {
+    echo 'Usage: slurm/submit [sbatch options] <script>.sbatch [script args]'
+    echo 'Placement and logs come from orbitol.local.env; explicit sbatch options win.'
+}
+script=
+skip_value=false
+for arg in "$@"; do
+    if $skip_value; then skip_value=false; continue; fi
+    case "$arg" in
+        --help|-h) usage; exit 0 ;;
+        # Skip separate values of sbatch options, even if a value ends in .sbatch.
+        --account|--acctg-freq|--array|--batch|--bb|--bbf|--begin|--chdir|--cluster-constraint|--clusters|\
+        --comment|--constraint|--container|--container-id|--core-spec|--cores-per-socket|\
+        --cpu-freq|--cpus-per-gpu|--cpus-per-task|--deadline|--delay-boot|--dependency|\
+        --distribution|--error|--exclude|--export|--export-file|--extra|--extra-node-info|\
+        --gid|--gpu-bind|--gpu-freq|--gpus|--gpus-per-node|--gpus-per-socket|--gpus-per-task|\
+        --gres|--gres-flags|--hint|--input|--job-name|--kill-on-invalid-dep|--licenses|--mail-type|--mail-user|\
+        --mcs-label|--mem|--mem-bind|--mem-per-cpu|--mem-per-gpu|--mincpus|--network|\
+        --nodefile|--nodelist|--nodes|--ntasks|--ntasks-per-core|--ntasks-per-gpu|\
+        --ntasks-per-node|--ntasks-per-socket|--open-mode|--output|--partition|--power|\
+        --prefer|--priority|--profile|--qos|--reservation|--segment|--signal|\
+        --sockets-per-node|--switches|--thread-spec|--threads-per-core|\
+        --time|--time-min|--tmp|--tres-bind|--tres-per-task|--uid|--wait-all-nodes|\
+        --wckey|--wrap|-A|-a|-B|-b|-C|-c|-D|-d|-e|-F|-G|-i|-J|-L|-M|-m|-N|-n|-o|-p|-q|-S|-t|-w|-x)
+            skip_value=true ;;
+        -*) continue ;;
+        *.sbatch) script=$arg; break ;;
+    esac
+done
+if [[ -z $script || ! -f $script ]]; then
+    usage >&2
+    echo "Expected a readable .sbatch script: $script" >&2
+    exit 2
+fi
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
+job_class=CPU
+if grep -Eq '^#SBATCH[[:space:]]+--gres[=[:space:]]+gpu([:,[:space:]]|$)' "$script"; then
+    job_class=GPU
+fi
+for setting in PARTITION ACCOUNT; do
+    key=ORBITOL_SLURM_${job_class}_$setting
+    unset "SBATCH_$setting"
+    if [[ -n ${!key:-} ]]; then export "SBATCH_$setting=${!key}"; fi
+done
+# A CPU child must not inherit its GPU parent's resource request.
+if [[ $job_class == CPU ]]; then unset SBATCH_GRES; fi
+unset SBATCH_OUTPUT
+if [[ -n ${ORBITOL_SLURM_LOG_DIR:-} ]]; then
+    export SBATCH_OUTPUT=$ORBITOL_SLURM_LOG_DIR/%x-%j.out
+fi
+exec sbatch "$@"

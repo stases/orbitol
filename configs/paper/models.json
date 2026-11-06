@@ -1,0 +1,77 @@
+[
+  {
+    "name": "mp20_x_postper_2500k",
+    "role": "main_benchmark",
+    "run": "orbitol_mp20_x_tw025_d512_gem_postper_2500k",
+    "step": 1500000,
+    "dataset": "mp20",
+    "train_config": "configs/paper/mp20_x_postper_2500k.json",
+    "sampler": "configs/paper/sampler_mp20_fast.json",
+    "snapshot": "checkpoints/mp20_x_postper_2500k/step_1500000.pt",
+    "source_sha256": "01af3858c6cf27a56836599d255bbf10e3fb8045e7cf8225059f9844a03cc799",
+    "source_size": 553647735,
+    "trained_commit": "4773f30541f87bb7b1b0268caa873e4bf57b8096",
+    "bank_sha256": "a4c9d4935e8121500ebe8ddf6f5ae0006a3ccfb1e8eb0c5969de70cdb24f844f",
+    "nequip_model_sha256": "507cbd2de97e86174f038286862b4b0d5bdbeb957315aca898f32600223bbe34",
+    "phase_diagram_sha256": "d367336484e11d95104897b13df18a153c0a839160e3a5c5a0f325fc6fe6268e",
+    "train_flags": [],
+    "paper_pools": [
+      {
+        "seed": 3001,
+        "n": 2500,
+        "samples_sha256": "52f2234cb7504fd1bea2e0aa041843585d9b5acbc191705eae991155faf1f12b",
+        "row_id": "orbitol__mp20_x_postper_1500k_fast_s1",
+        "scored_n": 2500,
+        "selection": "first_2500"
+      },
+      {
+        "seed": 3002,
+        "n": 2500,
+        "samples_sha256": "53db8771a974fcf3fe83f47cf07ad3fdb5d0245947930d387e0ac430cc2cac79",
+        "row_id": "orbitol__mp20_x_postper_1500k_fast_s2",
+        "scored_n": 2500,
+        "selection": "first_2500"
+      },
+      {
+        "seed": 3003,
+        "n": 2500,
+        "samples_sha256": "af0f2418c6ba6db7d199cace0a5f40af2f65d4dbeb38ce371187ed08c593baeb",
+        "row_id": "orbitol__mp20_x_postper_1500k_fast_s3",
+        "scored_n": 2500,
+        "selection": "first_2500"
+      }
+    ],
+    "expected": {
+      "in_training": {
+        "seed": 123,
+        "n": 10000,
+        "MSUN": 0.4569
+      },
+      "table12": {
+        "n": 10000,
+        "decode_impl": "fast",
+        "chosen": {
+          "overrides": {
+            "sample_num_steps": 25,
+            "S_churn": 10.0,
+            "sigma_min": 0.01,
+            "sigma_max": 3.0
+          },
+          "seeds": [2026, 2027, 2028],
+          "MSUN": [0.4506, 0.444, 0.4469],
+          "UN": [0.7706541308261652, 0.7651, 0.7601],
+          "one_shot": [0.3158, 0.3185, 0.3141]
+        },
+        "stored": {
+          "overrides": {
+            "sigma_max": 80.0,
+            "sample_num_steps": 150,
+            "S_churn": 60
+          },
+          "seeds": [2026, 2027, 2028],
+          "MSUN": [0.4398, 0.4428, 0.4475]
+        }
+      }
+    }
+  }
+]
