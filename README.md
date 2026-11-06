@@ -105,7 +105,7 @@ parameters during sampling.
 Train the paper's MP-20 model (2.5M steps; the released checkpoint is step 1.5M):
 
 ```bash
-python -m orbitol.train --run-name mp20 --config configs/paper/mp20_x_postper_2500k.json
+python -m orbitol.train --run-name mp20 --config configs/paper/mp20_x_postper_2500k.json --no-wandb --ckpt-keep 0
 ```
 
 Every config field is also a command-line flag. [docs/training.md](docs/training.md) lists the flags, the paper's model
@@ -113,8 +113,8 @@ variants and the Slurm setup.
 
 ## Reproducing the paper
 
-[docs/reproduce.md](docs/reproduce.md) gives the commands and expected results for the MP-20 sample pools, the sampler
-sweep (Table 12) and retraining.
+[docs/reproduce.md](docs/reproduce.md) gives the commands and expected results for the MP-20 sample pools and the
+sampler sweep (Table 12), and the training command.
 
 ## Documentation
 

@@ -52,7 +52,7 @@ python -m tools.release.fetch --bundle https://huggingface.co/stases/orbitol/res
 Or download the files directly and check them:
 
 ```bash
-hf download stases/orbitol --revision <revision> --local-dir orbitol-bundle
+uvx --from huggingface_hub hf download stases/orbitol --revision <revision> --local-dir orbitol-bundle
 cd orbitol-bundle && sha256sum -c SHA256SUMS
 ```
 

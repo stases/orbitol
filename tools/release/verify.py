@@ -15,7 +15,7 @@ POOL_KEYS = ("rows", "requested_G", "skeletons", "raw", "contains_a", "failures"
 REQUIRED_POOL_KEYS = ("rows", "requested_G", "failures")  # sweep files keep only these
 RELOCATABLE_POOL_KEYS = {"metadata", "evaluation_settings"}  # paths and run identity; never compared
 DATA_EXCLUSIONS = {"checkpoint", "paper_config", "attribution"}
-# Same seed on the same GPU type: 0.4504 vs 0.4506 across release-check runs; relaxation is not bitwise.
+# Relaxation is not bitwise reproducible, even on the same GPU type.
 TABLE12_TOLERANCE = 0.01
 
 

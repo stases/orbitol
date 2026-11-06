@@ -37,16 +37,16 @@ overrides it. For the OEQ JIT, configure `ORBITOL_CUDA_HOME` and, if needed, `OR
 ## Training
 
 ```bash
-python -m orbitol.train --run-name mp20 --config configs/paper/mp20_x_postper_2500k.json
-slurm/submit slurm/train_orbitol.sbatch mp20 --config configs/paper/mp20_x_postper_2500k.json   # on Slurm
+python -m orbitol.train --run-name mp20 --config configs/paper/mp20_x_postper_2500k.json --no-wandb
+slurm/submit slurm/train_orbitol.sbatch mp20 --config configs/paper/mp20_x_postper_2500k.json --no-wandb   # on Slurm
 ```
 
 Runs write to `$ORBITOL_RUNS_ROOT/<run_name>` and resume automatically from it. Every field of `TrainConfig`
 (`orbitol/contracts.py`) is a flag, with dashes or underscores; explicit flags override the config file. Without
 `--config`, the defaults differ from the paper model (for example `--objective posterior` and `--gem-mode none`).
 The paper configs evaluate in-process (`--eval-mode sync`); the default, `async`, submits evaluation jobs to Slurm
-([evaluation.md](evaluation.md)). `--no-wandb` turns off W&B logging; W&B runs use `ORBITOL_WANDB_ENTITY` (default:
-your W&B default entity). `SMOKE=1 slurm/submit slurm/train_orbitol.sbatch test_run` runs a four-step check.
+([evaluation.md](evaluation.md)). Without `--no-wandb`, runs log to W&B (run `wandb login` first) under
+`ORBITOL_WANDB_ENTITY` (default: your W&B default entity). `SMOKE=1 slurm/submit slurm/train_orbitol.sbatch test_run` runs a four-step check.
 
 Frequently used flags:
 

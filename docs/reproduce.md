@@ -44,7 +44,7 @@ python -m tools.release.fetch --bundle "$BUNDLE" --public mp20-raw,mp20-hull --d
 python -m tools.release.fetch --bundle "$BUNDLE" --public mp20-raw,mp20-hull
 ```
 
-A local copy works the same way: `hf download stases/orbitol --revision 0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c --local-dir <dir>`,
+A local copy works the same way: `uvx --from huggingface_hub hf download stases/orbitol --revision 0df0e17ce04a39ab78fb6c3a74dcce4a05495a6c --local-dir <dir>`,
 then `--bundle <dir>`.
 
 The bundle contains the data layout, `checkpoints/`, `configs/paper/` and `MANIFEST.json`.
@@ -125,9 +125,8 @@ three seeds of each setting it finds (`--partial` accepts fewer). The table's si
 use seed 2026 and the settings printed there, with `S_churn` = 0.4 × steps; run them with the same
 command (for example `{"name":"n50","sample_num_steps":50,"S_churn":20,"sigma_min":0.01,"sigma_max":3.0,"decode_impl":"fast"}`)
 and compare with the table by hand.
-Registry values below are fractions, in seed order 2026/2027/2028. Compare statistically;
-relaxed endpoints are not bitwise, including on sm_89: seed 2026 of the chosen setting gave MSUN
-0.4504, 0.4501, 0.4501 and 0.4504 against 0.4506 in the four release checks.
+Registry values below are fractions, in seed order 2026/2027/2028. Relaxed endpoints are not bitwise
+reproducible, even on the same GPU type, so compare statistically.
 
 | Setting | MSUN | UN | One-shot MSUN |
 |---|---|---|---|
@@ -147,11 +146,6 @@ python -m orbitol.train --run-name reproduce_mp20 --out-root "$ORBITOL_RUNS_ROOT
 ```
 
 Keeping periodic checkpoints preserves step 1.5M after later training. The JSON runs to 2.5M.
-On one RTX 6000 Ada, the paper's MP-20 run reached 1.5M in about 16.7 hours including 15
-evaluations and was stopped at 2.0M of its 2.5M schedule; its in-training MSUN (sample seed 123,
-10,000 attempts) was 0.4569 at 1.5M, and the released 1.5M snapshot scores 0.4567 when this
-evaluation is rerun from the release. Retraining is statistical, not bitwise; the best checkpoint
-can occur at a different step.
 
 ## Any Slurm cluster
 

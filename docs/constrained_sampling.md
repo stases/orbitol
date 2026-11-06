@@ -51,8 +51,8 @@ from orbitol.sample import isolated_rng, load_snapshot, sample_pool
 core.verify_core()
 with isolated_rng():
     inputs, metadata = load_snapshot(
-        Path(C.local_path("ORBITOL_RUNS_ROOT")) / "RUN/eval_snapshots/step_0020000.pt",
-        device="cpu",
+        Path(C.local_path("ORBITOL_DATA_HOME")) / "checkpoints/mp20_x_postper_2500k/step_1500000.pt",
+        device="cuda",
     )
     n, seed = 16, 123
     skeletons = inputs["bank"].sample(n, generator=np.random.default_rng(seed))
@@ -61,7 +61,7 @@ with isolated_rng():
         if len(skeleton.rows) >= 2:
             fixed_A0[i, 1] = 7
     sampler = FixedElements(fixed_A0, inputs["encoding"], inputs["allowed_mask"])
-    result = sample_pool(**inputs, n=n, seed=seed, device="cpu", sampler=sampler)
+    result = sample_pool(**inputs, n=n, seed=seed, device="cuda", sampler=sampler)
     result["metadata"].update(metadata)
 ```
 
